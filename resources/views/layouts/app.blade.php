@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -27,7 +28,18 @@
                 </header>
             @endisset
 
-            <!-- Page Content -->
+            @if (session('success'))
+                <div
+                    x-data="{ show: true }"
+                    x-init="setTimeout(() => show = false, 3000)"
+                    x-show="show"
+                    x-transition
+                    class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded shadow-lg"
+                >
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <main>
                 {{ $slot }}
             </main>
