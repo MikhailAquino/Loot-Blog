@@ -37,14 +37,16 @@
                         </p>
 
                         <div class="flex justify-between items-center relative z-20">
-                            <a href="{{ route('posts.edit', $post) }}" class="text-blue-500">Edit</a>
-                            <form action="{{ route('posts.destroy', $post) }}" method="POST"
-                                onsubmit="return confirm('Are you sure you want to delete this post?');"
-                                class="inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500 ml-2">Delete</button>
-                            </form>
+                            @can('update', $post)
+                                <a href="{{ route('posts.edit', $post) }}">Edit</a>
+                            @endcan
+                            @can('delete', $post)
+                                <form method="POST" action="{{ route('posts.destroy', $post) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">Delete</button>
+                                </form>
+                            @endcan
                         </div>
                     </div>
                 @endforeach

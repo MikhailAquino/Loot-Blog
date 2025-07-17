@@ -1,45 +1,50 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            View Post
+            {{ $post->title }}
         </h2>
     </x-slot>
 
-    <div class="py-12 max-w-4xl mx-auto px-4">
-        <div class="bg-white rounded shadow p-6">
-            <h1 class="text-3xl font-bold mb-4">{{ $post->title }}</h1>
-
-            <p class="text-gray-700 mb-6">
-                {{ $post->body }}
-            </p>
-
-            <p class="text-sm text-gray-500 mb-6">
-                Posted by {{ $post->user->name }} • {{ $post->created_at->format('M d, Y') }}
-            </p>
-
-            <div class="flex space-x-4">
-                @can('update', $post)
-                    <a href="{{ route('posts.edit', $post) }}"
-                       class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow">
-                        Edit Post
-                    </a>
-
-                    <form action="{{ route('posts.destroy', $post) }}" method="POST"
-                          onsubmit="return confirm('Are you sure you want to delete this post?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow">
-                            Delete Post
-                        </button>
-                    </form>
-                @endcan
-            </div>
+    <div class="py-12 max-w-4xl mx-auto">
+        <div class="bg-white p-6 rounded shadow">
+            <h1 class="text-2xl font-bold mb-4">{{ $post->title }}</h1>
+            <p class="text-gray-700 mb-6">{{ $post->body }}</p>
+            <p class="text-sm text-gray-500">Posted by {{ $post->user->name }} • {{ $post->created_at->diffForHumans() }}</p>
         </div>
 
-        <div class="mt-6">
-            <a href="{{ route('dashboard') }}"
-               class="text-blue-500 hover:underline">&larr; Back to Dashboard</a>
+        <!-- Comments section -->
+        <div class="mt-8">
+            <h3 class="text-lg font-semibold">Comments</h3>
+            @foreach ($post->comments as $comment)
+                <div class="mt-2 p-3 bg-gray-100 rounded">
+                    <p>{{ $comment->body }}</p>
+                    <p class="text-xs text-gray-500">
+                        by {{ $comment->user->name }} • {{ $comment->created_at->diffForHumans() }}
+                    </p>
+
+                    @can('delete', $comment)
+                        <form method="POST" action="{{ route('comments.destroy', $comment) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                        </form>
+                    @endcan
+                </div>
+            @endforeach
+
+
+            <!-- Add comment form -->
+            @auth
+                <form action="{{ route('posts.comments.store', $post->id) }}" method="POST">
+                    @csrf
+                    <textarea name="body" rows="3" class="w-full border rounded px-3 py-2" placeholder="Write a comment..."></textarea>
+                    <button type="submit" class="mt-2 bg-purple-600 text-white px-4 py-2 rounded">
+                        Add Comment
+                    </button>
+                </form>
+            @else
+                <p class="mt-4 text-gray-600">Log in to leave a comment.</p>
+            @endauth
         </div>
     </div>
 </x-app-layout>
