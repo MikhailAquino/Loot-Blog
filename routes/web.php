@@ -11,7 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $posts = Post::latest()->get();
+    $posts = Post::latest()->withCount('comments')->get();
     return view('dashboard', compact('posts'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 

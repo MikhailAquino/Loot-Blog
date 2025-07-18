@@ -32,8 +32,12 @@
                             {{ \Illuminate\Support\Str::limit($post->body, 100) }}
                         </p>
 
-                        <p class="text-sm text-gray-500 mb-4">
+                        <p class="text-sm text-gray-500 mb-2">
                             by {{ $post->user->name }}
+                        </p>
+
+                        <p class="text-purple-700">
+                            💬 {{ $post->comments_count }} {{ Str::plural('comment', $post->comments_count) }}
                         </p>
 
                         <div class="flex justify-between items-center relative z-20">

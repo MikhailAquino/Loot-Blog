@@ -6,13 +6,14 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <img src="{{ asset('logo.png') }}" alt="My Logo" class="h-10 w-auto">
                     </a>
                 </div>
 
                 <div class="text-black p-5">
                     Mikhail's Mini Blog System!
                 </div>
+
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

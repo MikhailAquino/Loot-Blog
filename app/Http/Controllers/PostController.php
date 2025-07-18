@@ -12,7 +12,7 @@ class PostController extends Controller
     public function index()
     {
         // Display a listing of the resource.
-        $posts = Post::latest()->get();
+        $posts = Post::latest()->withCount('comments')->get();
         return view('posts.index', compact('posts'));
     }
 
