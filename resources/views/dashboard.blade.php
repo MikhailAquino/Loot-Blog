@@ -21,34 +21,41 @@
         @else
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 @foreach ($posts as $post)
-                    <div class="bg-white rounded shadow p-6 relative transition transform hover:scale-105 hover:shadow-lg">
+                <div class="bg-white rounded shadow p-6 relative transition transform hover:scale-105 hover:shadow-lg flex flex-col">
                         <a href="{{ route('posts.show', $post) }}" class="absolute inset-0 z-10"></a>
 
-                        <h2 class="text-xl font-semibold mb-2">
-                            {{ $post->title }}
-                        </h2>
+                        <div class="flex-grow">
+                            <h2 class="text-xl font-semibold mb-2">{{ $post->title }}</h2>
 
-                        <p class="text-gray-700 mb-4">
-                            {{ \Illuminate\Support\Str::limit($post->body, 100) }}
-                        </p>
+                            <p class="text-gray-700 mb-4">
+                                {{ \Illuminate\Support\Str::limit($post->body, 100) }}
+                            </p>
 
-                        <p class="text-sm text-gray-500 mb-2">
-                            by {{ $post->user->name }}
-                        </p>
+                            <p class="text-sm text-gray-500 mb-2">
+                                by {{ $post->user->name }}
+                            </p>
 
-                        <p class="text-purple-700">
-                            💬 {{ $post->comments_count }} {{ Str::plural('comment', $post->comments_count) }}
-                        </p>
+                            <p class="text-purple-700 mb-4">
+                                💬 {{ $post->comments_count }} {{ Str::plural('comment', $post->comments_count) }}
+                            </p>
+                        </div>
 
-                        <div class="flex justify-between items-center relative z-20">
+                        <div class="flex justify-between items-center mt-auto pt-4 border-t relative z-20">
                             @can('update', $post)
-                                <a href="{{ route('posts.edit', $post) }}">Edit</a>
+                                <a href="{{ route('posts.edit', $post) }}"
+                                   class="inline-block bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm shadow">
+                                    Edit
+                                </a>
                             @endcan
+
                             @can('delete', $post)
-                                <form method="POST" action="{{ route('posts.destroy', $post) }}">
+                                <form method="POST" action="{{ route('posts.destroy', $post) }}" class="inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit">Delete</button>
+                                    <button type="submit"
+                                            class="inline-block bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm shadow">
+                                        Delete
+                                    </button>
                                 </form>
                             @endcan
                         </div>
