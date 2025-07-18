@@ -59,4 +59,116 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# Laravel-Blog-System
+
+# Mini Blog System
+
+This is a simple **mini blog system** built with **Laravel** and **Laravel Breeze** for authentication.  
+It allows registered users to create posts, leave comments, and manage their own content securely.
+
+---
+
+## ✨ Features
+
+✅ User authentication (login & register)  
+✅ Create, edit, and delete blog posts  
+✅ Comment system for posts  
+✅ Authorization so only the author can edit or delete their own posts and comments  
+✅ Clean Tailwind CSS styling with a dashboard layout  
+✅ GitHub-friendly structure and local development
+
+---
+
+## 📦 Requirements
+
+- PHP >= 8.1  
+- Composer  
+- Node.js & npm  
+- MySQL or other supported database
+
+---
+
+## 🚀 Installation
+
+1️⃣ **Clone the repository**
+
+```bash
+git clone https://github.com/yourusername/mini-blog.git
+cd mini-blog
+```
+
+2️⃣ **Install PHP dependencies**
+
+```bash
+composer install
+```
+
+3️⃣ **Install JS & CSS dependencies**
+
+```bash
+npm install
+```
+
+4️⃣ **Copy `.env` and generate app key**
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+5️⃣ **Configure your `.env`**
+
+Update your database credentials:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mini_blog
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+6️⃣ **Run migrations**
+
+```bash
+php artisan migrate
+```
+
+7️⃣ **(Optional) Seed some demo posts**
+
+```bash
+php artisan db:seed --class=PostSeeder
+```
+
+8️⃣ **Start the dev servers**
+
+In one terminal:
+```bash
+php artisan serve
+```
+
+In another:
+```bash
+npm run dev
+```
+
+Visit [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+---
+
+## 🗂️ Project Structure
+
+- `routes/web.php` → all web routes  
+- `app/Http/Controllers` → your controllers (Posts, Comments, Profile)  
+- `resources/views` → Blade templates for dashboard, posts, comments  
+- `public/` → public assets & favicon  
+- `database/migrations` → database schema  
+- `database/seeders` → sample data for testing
+
+---
+
+## 🔐 Authentication
+
+This project uses **Laravel Breeze** for simple starter authentication.  
+Register and log in to access the dashboard.
+

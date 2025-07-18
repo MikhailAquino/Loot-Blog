@@ -7,7 +7,7 @@
 
     <div class="py-12 max-w-6xl mx-auto px-4">
         <div class="mb-6 flex justify-between items-center">
-            <h3 class="text-2xl font-bold">Your Posts</h3>
+            <h3 class="text-2xl font-bold">Available Posts</h3>
             <a href="{{ route('posts.create') }}"
                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow">
                 Add New Post
