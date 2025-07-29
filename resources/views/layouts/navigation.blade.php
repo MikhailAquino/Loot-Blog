@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="text-black p-5">
-                    Mikhail's Mini Blog System!
+                    Loot Blog
                 </div>
 
 

@@ -11,18 +11,21 @@
             <div class="text-center text-gray-600">
                 <p class="text-lg mb-4">No posts found.</p>
                 <a href="{{ route('posts.create') }}"
-                   class="bg-blue-500 text-white px-4 py-2 rounded">
-                    Create your first post
+                    class="bg-blue-500 text-white px-4 py-2 rounded">
+                    Add your first loot item!
                 </a>
             </div>
         @else
             <a href="{{ route('posts.create') }}"
-               class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">
-                Create New Post
+                class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">
+                Create New Item
             </a>
 
             @foreach ($posts as $post)
                 <div class="border p-4 mb-4">
+                    @if ($post->image)
+                        <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="mb-3 rounded shadow" style="max-height:200px;">
+                    @endif
                     <h2 class="text-xl font-semibold">{{ $post->title }}</h2>
                     <p>{{ $post->body }}</p>
                     <p class="text-sm text-gray-600">by {{ $post->user->name }}</p>

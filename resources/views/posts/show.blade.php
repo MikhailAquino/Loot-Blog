@@ -7,9 +7,16 @@
 
     <div class="py-12 max-w-4xl mx-auto">
         <div class="bg-white p-6 rounded shadow">
+            <!-- Display the blog post thumbnail image -->
+            @if ($post->image)
+                <div class="mb-4">
+                    <img src="{{ Storage::url('posts/' . $post->image) }}" alt="Post Thumbnail" class="w-full h-64 object-cover rounded-lg">
+                </div>
+            @endif
+
             <h1 class="text-2xl font-bold mb-4">{{ $post->title }}</h1>
             <p class="text-gray-700 mb-6">{{ $post->body }}</p>
-            <p class="text-sm text-gray-500">Posted by {{ $post->user->name }} • {{ $post->created_at->diffForHumans() }}</p>
+            <p class="text-sm text-gray-500">Given by {{ $post->user->name }} • {{ $post->created_at->diffForHumans() }}</p>
         </div>
 
         <!-- Comments section -->
@@ -31,7 +38,6 @@
                     @endcan
                 </div>
             @endforeach
-
 
             <!-- Add comment form -->
             @auth
