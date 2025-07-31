@@ -14,6 +14,8 @@ class AdminDashboardController extends Controller
         $userCount = User::count();
         $postCount = Post::count();
         $commentCount = Comment::count();
-        return view('admin.dashboard', compact('userCount', 'postCount', 'commentCount'));
+        $posts = Post::with('user')->latest()->get();
+        $users = User::latest()->get();
+        return view('admin.dashboard', compact('userCount', 'postCount', 'commentCount', 'posts', 'users'));
     }
 }

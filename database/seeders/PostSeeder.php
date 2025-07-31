@@ -10,55 +10,72 @@ class PostSeeder extends Seeder
 {
     public function run(): void
     {
-        // Define preset users
+        // Define an admin user
+        $adminUser = User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin',
+                'password' => bcrypt('adminpassword'),
+                'is_admin' => '1',
+            ]
+        );
+        // Define preset users and their unique posts
         $users = [
             [
                 'name' => 'ConcernedApe',
                 'email' => 'concernedape@example.com',
+                'posts' => [
+                    [
+                        'title' => 'Stardew Valley Future is Bright',
+                        'body' => 'Stardew Valley is a beloved farming simulation game that has captured the hearts of many players. With its charming graphics, engaging gameplay, and a strong sense of community, it continues to thrive even years after its initial release.',
+                        'image' => 'uploads/stardew.jpg',
+                    ],
+                ],
             ],
             [
                 'name' => 'MojangStudios',
                 'email' => 'minecraftmaster@example.com',
+                'posts' => [
+                    [
+                        'title' => 'Chase the Skies Minecraft Game Drop Out Now!',
+                        'body' => 'Chase the Skies, the second game drop of the year, has just been released. Players can explore vast worlds, ride happy ghasts, and embark on thrilling adventures with friends.',
+                        'image' => 'uploads/minecraft.jpg',
+                    ],
+                ],
             ],
             [
                 'name' => 'Nintendo',
                 'email' => 'animalcrossingfan@example.com',
+                'posts' => [
+                    [
+                        'title' => 'Animal Crossing: New Horizons - Life on the Island Gets Even Better!',
+                        'body' => 'Animal Crossing: New Horizons continues to be a staple of cozy gaming, and with the latest update, it\'s become even more exciting. From new seasonal events to fresh island decorations, players can now enjoy a deeper experience with new friends, activities, and items.',
+                        'image' => 'uploads/animalcrossing.png',
+                    ],
+                ],
             ],
         ];
 
-         // Insert preset users into the database
         foreach ($users as $userData) {
-            $user = User::create([
-                'name' => $userData['name'],
-                'email' => $userData['email'],
-                'password' => bcrypt('password'), // Default password
-            ]);
+            $user = User::firstOrCreate(
+                ['email' => $userData['email']],
+                [
+                    'name' => $userData['name'],
+                    'password' => bcrypt('password'), // Default password
+                ]
+            );
 
-            // Define posts for each user
-            $posts = [
-                [
-                    'title' => 'Stardew Valley Future is Bright',
-                    'body' => 'Stardew Valley is a beloved farming simulation game that has captured the hearts of many players. With its charming graphics, engaging gameplay, and a strong sense of community, it continues to thrive even years after its initial release.',
-                    'user_id' => $user->id,  // Link to the current user
-                    'image' => 'uploads/stardew.jpg',
-                ],
-                [
-                    'title' => 'Chase the Skies Minecraft Game Drop Out Now!',
-                    'body' => 'Chase the Skies, the second game drop of the year, has just been released. Players can explore vast worlds, ride happy ghasts, and embark on thrilling adventures with friends.',
-                    'user_id' => $user->id,  // Link to the current user
-                    'image' => 'uploads/minecraft.jpg',
-                ],
-                [
-                    'title' => 'Animal Crossing: New Horizons - Life on the Island Gets Even Better!',
-                    'body' => 'Animal Crossing: New Horizons continues to be a staple of cozy gaming, and with the latest update, it\'s become even more exciting. From new seasonal events to fresh island decorations, players can now enjoy a deeper experience with new friends, activities, and items.',
-                    'user_id' => $user->id,  // Link to the current user
-                    'image' => 'uploads/animalcrossing.png',
-                ],
-            ];
-
-            // Insert the posts for the current user
-            foreach ($posts as $post) {
-                Post::create($post);
+            foreach ($userData['posts'] as $post) {
+                Post::firstOrCreate(
+                    [
+                        'title' => $post['title'],
+                        'user_id' => $user->id,
+                    ],
+                    [
+                        'body' => $post['body'],
+                        'image' => $post['image'],
+                    ]
+                );
             }
         }
     }

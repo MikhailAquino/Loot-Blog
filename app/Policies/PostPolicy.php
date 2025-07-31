@@ -37,7 +37,8 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->id === $post->user_id;
+        // Allow post owner OR admin
+        return $user->id === $post->user_id || $user->is_admin;
     }
 
     /**

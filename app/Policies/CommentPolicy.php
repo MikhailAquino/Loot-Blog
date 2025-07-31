@@ -35,9 +35,9 @@ class CommentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Comment $comment): bool
+    public function update(User $user, Comment $comment)
     {
-        return false;
+        return $user->id === $comment->user_id;
     }
 
     /**
