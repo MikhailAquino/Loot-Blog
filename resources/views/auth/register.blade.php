@@ -40,6 +40,11 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
+            @if(auth()->check() && auth()->user()->is_admin)
+                <label for="is_admin" class="mr-2">Register as Admin</label>
+                <input type="checkbox" id="is_admin" name="is_admin" value="1">
+            @endif
+
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
