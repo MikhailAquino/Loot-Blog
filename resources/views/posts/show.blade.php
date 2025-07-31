@@ -10,7 +10,7 @@
             <!-- Display the blog post thumbnail image -->
             @if ($post->image)
                 <div class="mb-4">
-                    <img src="{{ Storage::url('posts/' . $post->image) }}" alt="Post Thumbnail" class="w-full h-64 object-cover rounded-lg">
+                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Thumbnail" class="w-full h-64 object-cover rounded-lg">
                 </div>
             @endif
 
